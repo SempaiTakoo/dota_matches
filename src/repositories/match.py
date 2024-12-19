@@ -15,6 +15,21 @@ class MatchRepository:
                 cur.execute(query)
                 return [Match(*row) for row in cur.fetchall()]
 
+    def get_match_by_id(self, match_id: int) -> Match:
+        query = '''
+            SELECT
+                id, start_time, duration, radiant_win, radiant_kills, dire_kills
+            FROM matches
+            WHERE id = %s
+        '''
+        with get_connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute(query, (match_id,))
+                row = cur.fetchone()
+                if row:
+                    return Match(*row)
+                raise ValueError(f"Match with id {match_id} not found")
+
     def add_match(self, match: Match) -> int:
         print(f'match: {match}')
         query = '''

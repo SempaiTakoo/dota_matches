@@ -34,11 +34,11 @@ class UserRepository:
         query = '''
             SELECT id, username, account_id, role, password_hash
             FROM users
-            WHERE username = %(username)s
+            WHERE username = %s
         '''
         with get_connection() as conn:
             with conn.cursor() as cur:
-                cur.execute(query, {'username': username})
+                cur.execute(query, (username,))
                 user = cur.fetchone()
 
                 if not user:

@@ -17,18 +17,18 @@ class PlayerItemsRepository:
         with get_connection() as conn:
             with conn.cursor() as cur:
                 cur.execute(query, (player_id,))
-                return [row[0] for row in cur.fetchall()]
+                return [PlayerItem(*row) for row in cur.fetchall()]
 
     def add_item_to_player(self, player_id, item_id):
         query = "INSERT INTO player_items (player_id, item_id) VALUES (%s, %s);"
         with get_connection() as conn:
             with conn.cursor() as cur:
                 cur.execute(query, (player_id, item_id))
-                self.connection.commit()
+                conn.commit()
 
     def delete_items_by_player(self, player_id):
         query = "DELETE FROM player_items WHERE player_id = %s;"
         with get_connection() as conn:
             with conn.cursor() as cur:
                 cur.execute(query, (player_id,))
-                self.connection.commit()
+                conn.commit()

@@ -33,11 +33,11 @@ def show_navigation_radio(
 ) -> None:
     if st.session_state.user_id:
         username = get_username_by_user_id(st.session_state.user_id)
-        st.session_state.page = st.radio(
+        st.session_state.page = st.sidebar.radio(
             f'Добро пожаловать, {username}!', authorized
         )
     else:
-        st.session_state.page = st.radio('Войдите в систему', unauthorized)
+        st.session_state.page = st.sidebar.radio('Войдите в систему', unauthorized)
 
 
 def show_entry_page() -> None:
@@ -81,5 +81,5 @@ def show_entry_page() -> None:
 
 if __name__ == '__main__':
     init_session_state_params(SESSION_STATE_PARAMS)
-    hide_sidebar()
+    # hide_sidebar()
     show_entry_page()

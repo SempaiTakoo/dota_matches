@@ -40,6 +40,9 @@ class MatchView:
             data = pd.DataFrame(
                 [
                     {
+                        'Победитель': (
+                            'Силы Света' if match.radiant_win else 'Силы Тьмы'
+                        ),
                         'Время начала': match.start_time,
                         'Продолжительность': match.duration,
                         'Очки сил Света': match.radiant_kills,
@@ -102,7 +105,8 @@ class MatchView:
                         'Количество убийств': player.kills,
                         'Количество смертей': player.deaths,
                         'Количество помощи': player.assistances,
-                        'Выбор стороны': side
+                        'Выбор стороны': side,
+                        'Изменение рейтинга': player.rating_change
                     }
                 )
             data = pd.DataFrame(players_side_by_side)
