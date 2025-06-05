@@ -1,11 +1,11 @@
 from abc import ABC, abstractmethod
 
-from app.domain.models.account import Account, AccountId
+from app.domain.models.account import Account, AccountId, NewAccount
 
 
 class AccountInterface(ABC):
     @abstractmethod
-    def add_one(self, new_account: Account) -> Account | None:
+    def add_one(self, new_account: NewAccount) -> Account | None:
         pass
 
     @abstractmethod

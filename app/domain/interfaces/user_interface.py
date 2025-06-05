@@ -17,7 +17,7 @@ class UserInterface(ABC):
         pass
 
     @abstractmethod
-    def get_by_username(self, username) -> User | None:
+    def get_by_username(self, username: str) -> User | None:
         pass
 
     @abstractmethod

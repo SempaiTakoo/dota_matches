@@ -14,10 +14,3 @@ class UserService:
         self.user_repository = user_repository
         self.auth_service = auth_service
         self.authz_service = authz_service
-
-    def get_user(self, user_id: UserId) -> User | None:
-        if
-
-        self.user_repository.get_one(user_id)
-
-    def get_users(self, )

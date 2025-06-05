@@ -1,4 +1,6 @@
+from app.domain.interfaces.account_interface import AccountInterface
 from app.domain.interfaces.auth_interface import AuthInterface, PasswordHasher, TokenStorageInterface
+from app.domain.models.account import Account, NewAccount
 from app.domain.models.auth_token import DEFAULT_TTL_SECONDS, AuthToken
 from app.domain.models.user import NewUser, User, UserId
 from app.domain.interfaces.user_interface import UserInterface
@@ -7,15 +9,18 @@ from app.domain.interfaces.user_interface import UserInterface
 class AuthService(AuthInterface):
     def __init__(
         self,
-        user_repo: UserInterface,
-        token_storage_repo: TokenStorageInterface,
+        user_repository: UserInterface,
+        account_repository: AccountInterface,
+        token_storage_repository: TokenStorageInterface,
         password_hasher: PasswordHasher
     ) -> None:
-        self.user_repository = user_repo
-        self.token_storage_repository = token_storage_repo
+        self.user_repository = user_repository
+        self.account_repository = account_repository
+        self.token_storage_repository = token_storage_repository
         self.password_hasher = password_hasher
 
-    def register(self, new_user: NewUser) -> User | None:
+    def register(self, new_user: NewUser, new_account: NewAccount) -> User | None:
+        self.account_repository.add_one(new_account)
         return self.user_repository.add_one(new_user)
 
     def _is_correct_credentials(
