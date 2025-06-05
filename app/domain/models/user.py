@@ -1,8 +1,14 @@
 from dataclasses import dataclass
+import enum
 from typing import NewType
 
 
 UserId = NewType('UserId', int)
+
+
+class UserRole(enum.Enum):
+    ADMIN = 'admin'
+    USER = 'user'
 
 
 @dataclass
@@ -22,5 +28,5 @@ class User:
     id: UserId
     username: str
     account_id: int
-    role: str
+    role: UserRole
     password_hash: str
